@@ -12,8 +12,8 @@ class Recorder(private val context: Context) {
 
     fun start(name: String) {
         output =
-            if (name == "") context.externalCacheDirs[0].absolutePath + "/MyVoice_${System.currentTimeMillis()}.wav"
-            else context.externalCacheDirs[0].absolutePath + "/${name}.wav"
+            if (name == "") context.externalCacheDirs[0].absolutePath + "/MyVoice_${System.currentTimeMillis()}.m4a"
+            else context.externalCacheDirs[0].absolutePath + "/${name}.m4a"
 
         val mediaRecorder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             MediaRecorder(context)
@@ -21,8 +21,10 @@ class Recorder(private val context: Context) {
             MediaRecorder()
         }
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS)
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+        mediaRecorder.setAudioEncodingBitRate(16)
+        mediaRecorder.setAudioSamplingRate(44100)
         mediaRecorder.setOutputFile(output)
         try {
             mediaRecorder.prepare()

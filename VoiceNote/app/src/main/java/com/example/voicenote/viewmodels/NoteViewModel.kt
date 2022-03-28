@@ -52,7 +52,7 @@ class NoteViewModel() : ViewModel() {
                 val filesArray: Array<File> = rootFolder.listFiles()
                 for (f in filesArray) {
                     val note = Note(f.name, f.absolutePath)
-                    if (f.isFile && f.extension == "wav") {
+                    if (f.isFile && f.extension == "m4a") {
                         note.date = parseDate(f)
                         tempNotes.add(note)
                     }

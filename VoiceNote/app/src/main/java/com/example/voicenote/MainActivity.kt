@@ -121,12 +121,11 @@ class MainActivity : AppCompatActivity() {
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
         builder.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
-            val value = input.text.toString()
+            val value = if (input.text.toString() != null) input.text.toString() else ""
             recorder.start(value)
         })
         builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ ->
             dialog.cancel()
-            recorder.start("")
         })
         builder.show()
     }
