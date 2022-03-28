@@ -32,13 +32,11 @@ import java.util.*
 enum class Status { LOADING, ERROR, DONE }
 class NoteViewModel() : ViewModel() {
 
-    private val _status = MutableLiveData<Status>()
     private val _notes = MutableLiveData<List<Note>>()
     private val _note = MutableLiveData<Note>()
 
     private val locale = Locale("ru", "RU")
 
-    val status: LiveData<Status> = _status
     val notes: LiveData<List<Note>> = _notes
     val note: LiveData<Note> = _note
 
@@ -49,7 +47,6 @@ class NoteViewModel() : ViewModel() {
     private fun getNotes() {
         val tempNotes = mutableListOf<Note>()
         viewModelScope.launch {
-            _status.value = Status.LOADING
             try {
                 val rootFolder = File("storage/sdcard0/Android/data/com.example.voicenote/cache")
                 val filesArray: Array<File> = rootFolder.listFiles()
@@ -61,10 +58,8 @@ class NoteViewModel() : ViewModel() {
                     }
                 }
                 _notes.value = tempNotes
-                _status.value = Status.DONE
             } catch (e: Exception) {
                 _notes.value = listOf()
-                _status.value = Status.ERROR
             }
         }
     }

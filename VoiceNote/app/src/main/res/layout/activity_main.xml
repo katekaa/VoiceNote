@@ -14,25 +14,28 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="12dp"
         tools:context=".MainActivity">
 
         <TextView
             android:id="@+id/header"
-            android:layout_margin="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="6dp"
+            android:layout_marginVertical="12dp"
             android:text="@string/YourNotes"
-            android:textAppearance="?attr/textAppearanceHeadline6" />
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="46dp"
+            android:layout_marginBottom="40dp"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,8 +54,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|bottom"
-                android:src="@drawable/mic"
-                android:layout_margin="20dp" />
+                android:layout_margin="20dp"
+                android:src="@drawable/mic" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

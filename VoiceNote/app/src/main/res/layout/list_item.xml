@@ -9,6 +9,7 @@
         <variable
             name="note"
             type="com.example.voicenote.models.Note" />
+
         <variable
             name="clickListener"
             type="com.example.voicenote.adapters.NoteListener" />
@@ -26,23 +27,20 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/cardview_shadow_start_color"
+                android:background="@color/card"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="6dp">
 
-                <EditText
+                <TextView
                     android:id="@+id/noteName"
                     android:layout_width="wrap_content"
-                    android:background="#00000000"
-                    android:inputType="none"
                     android:layout_height="wrap_content"
+                    android:background="#00000000"
                     android:ellipsize="end"
+                    android:inputType="none"
                     android:lines="1"
                     android:maxWidth="190dp"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:cursorVisible="false"
                     android:text="@{note.name}"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -68,10 +66,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
-                    android:layout_marginStart="50dp"
                     android:onClick="@{() -> clickListener.onClick(note)}"
+                    android:src="@drawable/play_button"
+                    app:fabSize="mini"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/noteName"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

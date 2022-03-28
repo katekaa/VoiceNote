@@ -1,11 +1,11 @@
 package com.example.voicenote
 
 import android.Manifest
+import android.app.AlertDialog.*
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -16,6 +16,11 @@ import com.example.voicenote.adapters.NoteAdapter
 import com.example.voicenote.adapters.NoteListener
 import com.example.voicenote.databinding.ActivityMainBinding
 import com.example.voicenote.viewmodels.NoteViewModel
+import android.content.DialogInterface
+import android.text.InputType
+
+import android.widget.EditText
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var player: Player
     private val recorder = Recorder(this)
     private lateinit var viewModel: NoteViewModel
+
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.recyclerView.adapter = NoteAdapter(NoteListener { note ->
             viewModel.onNoteClicked(note)
-            Log.d("!!", "btn cli")
             player = Player(note)
             if (player.isPlaying()) {
                 player.stop()
@@ -71,7 +76,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -88,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             when {
                 granted -> {
-                    recorder.start()
+                    showdialog()
                 }
                 !shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO) -> {
                     Toast.makeText(
@@ -108,4 +112,22 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+    private fun showdialog() {
+        val builder = Builder(this)
+        builder.setTitle("Название")
+        val input = EditText(this)
+        input.setHint("Введите название")
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+        builder.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+            val value = input.text.toString()
+            recorder.start(value)
+        })
+        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ ->
+            dialog.cancel()
+            recorder.start("")
+        })
+        builder.show()
+    }
 }
